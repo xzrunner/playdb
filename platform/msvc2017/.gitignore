@@ -1,0 +1,8 @@
+playdb/
+projects/*
+
+!projects/test.sln
+!projects/playdb.vcxproj
+!projects/playdb.vcxproj.filters
+!projects/test.vcxproj
+!projects/test.vcxproj.filters
