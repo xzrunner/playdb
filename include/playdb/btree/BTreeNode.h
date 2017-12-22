@@ -52,6 +52,11 @@ private:
 
 	void CopyKey(size_t dst_idx, size_t src_idx, const BTreeNode<T>& src);
 
+	// serialize key
+	size_t GetKeyByteArraySize(const T& key) const;
+	void LoadKeyFromByteArray(T& key, byte** ptr) const;
+	void StoreKeyToByteArray(const T& key, byte** ptr) const;
+
 private:
 	BTree<T>* m_tree;
 
