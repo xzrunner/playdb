@@ -41,7 +41,7 @@ void pack_str(const std::string& str, uint8_t** ptr) {
 		if (str.size() > 0xffff) {
 			throw IllegalArgumentException("string too long");
 		}
-		uint16_t sz = str.size();
+		uint16_t sz = static_cast<uint16_t>(str.size());
 		pack(sz, ptr);
 		for (int i = 0; i < sz; ++i) {
 			uint8_t c = str[i];
