@@ -20,8 +20,26 @@ BTree<T>::BTree(IStorageManager* storage_mgr, size_t degree)
 	, m_header_id(storage::NEW_PAGE)
 	, m_degree(degree)
 {
+	StoreHeader();
+
 	BTreeNode<T> root(this, storage::NEW_PAGE, true);
 	m_root_id = WriteNode(root);
+}
+
+template <typename T>
+BTree<T>::BTree(IStorageManager* storage_mgr)
+	: m_storage_mgr(storage_mgr)
+	, m_root_id(storage::NEW_PAGE)
+	, m_header_id(0)
+	, m_degree(0)
+{
+	LoadHeader();
+}
+
+template <typename T>
+BTree<T>::~BTree()
+{
+	StoreHeader();
 }
 
 template <typename T>
@@ -166,6 +184,39 @@ void BTree<T>::DeleteNode(const BTreeNode<T>& node)
 	}
 
 	m_stats.nodes--;
+}
+
+template <typename T>
+void BTree<T>::StoreHeader()
+{
+	size_t sz = 0;
+	sz += sizeof(id_type);		// m_root_id
+	sz += sizeof(size_t);		// m_degree
+
+	byte* data = new byte[sz];
+	byte* ptr = data;
+
+	storage::pack(m_root_id, &ptr);
+	storage::pack(m_degree, &ptr);
+
+	m_storage_mgr->StoreByteArray(m_header_id, sz, data);
+
+	delete[] data;
+}
+
+template <typename T>
+void BTree<T>::LoadHeader()
+{
+	size_t len;
+	byte* data = 0;
+	m_storage_mgr->LoadByteArray(m_header_id, len, &data);
+
+	byte* ptr = data;
+
+	storage::unpack(m_root_id, &ptr);
+	storage::unpack(m_degree, &ptr);
+
+	delete[] data;
 }
 
 }

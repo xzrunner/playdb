@@ -17,7 +17,7 @@ MemoryStorageManager::~MemoryStorageManager()
 	}
 }
 
-void MemoryStorageManager::LoadByteArray(const id_type id, size_t& len, byte** data) const
+void MemoryStorageManager::LoadByteArray(const id_type id, size_t& len, byte** data)
 {
 	Entry* e;
 	try {

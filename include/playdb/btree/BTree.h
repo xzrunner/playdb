@@ -16,6 +16,8 @@ class BTree
 public:
 	// degree = order / 2
 	BTree(IStorageManager* storage_mgr, size_t degree);
+	BTree(IStorageManager* storage_mgr);
+	~BTree();
 
 	void InsertData(const T& key, size_t len, const byte* data);
 
@@ -27,6 +29,9 @@ private:
 	id_type WriteNode(BTreeNode<T>& node);
 	NodePtr<T> ReadNode(id_type id);
 	void DeleteNode(const BTreeNode<T>& node);
+
+	void StoreHeader();
+	void LoadHeader();
 
 private:
 	size_t MaxKeys() const {

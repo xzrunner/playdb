@@ -28,7 +28,7 @@ std::string InvalidPageException::what() const
 	return "InvalidPageException: " + m_error;
 }
 
-IllegalStateException::IllegalStateException(std::string s) 
+IllegalStateException::IllegalStateException(const std::string& s)
 	: m_error(s)
 {
 }
@@ -36,6 +36,16 @@ IllegalStateException::IllegalStateException(std::string s)
 std::string IllegalStateException::what() const
 {
 	return "IllegalStateException: " + m_error + "\nPlease contact "/* + PACKAGE_BUGREPORT*/;
+}
+
+IllegalArgumentException::IllegalArgumentException(const std::string& s) 
+	: m_error(s)
+{
+}
+
+std::string IllegalArgumentException::what() const
+{
+	return "IllegalArgumentException: " + m_error;
 }
 
 }

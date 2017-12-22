@@ -36,12 +36,22 @@ private:
 class IllegalStateException : public Exception
 {
 public:
-	IllegalStateException(std::string s);
+	IllegalStateException(const std::string& s);
 	virtual std::string what() const override;
 
 private:
 	std::string m_error;
 }; // IllegalStateException
+
+class IllegalArgumentException : public Exception
+{
+public:
+	IllegalArgumentException(const std::string& s);
+	virtual std::string what() const override;
+
+private:
+	std::string m_error;
+}; // IllegalArgumentException
 
 }
 

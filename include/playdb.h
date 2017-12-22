@@ -9,7 +9,7 @@ namespace playdb
 class IStorageManager
 {
 public:
-	virtual void LoadByteArray(const id_type id, size_t& len, byte** data) const = 0;
+	virtual void LoadByteArray(const id_type id, size_t& len, byte** data) = 0;
 	virtual void StoreByteArray(id_type& id, const size_t len, const byte* const data) = 0;
 	virtual void DeleteByteArray(const id_type id) = 0;
 	virtual ~IStorageManager() {}

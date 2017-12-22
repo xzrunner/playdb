@@ -31,6 +31,9 @@
     <ClInclude Include="..\..\..\include\playdb\btree\tools.h">
       <Filter>btree</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\playdb\storage\DiskStorageManager.h">
+      <Filter>storage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\playdb\btree\BTree.inl">
@@ -46,6 +49,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\Exception.cpp">
       <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\storage\DiskStorageManager.cpp">
+      <Filter>storage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
