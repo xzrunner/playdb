@@ -31,7 +31,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectName>1.playdb</ProjectName>
-    <ProjectGuid>{F22A86E7-B73F-4F6A-9EA8-E4AE9CC9D885}</ProjectGuid>
+    <ProjectGuid>{E421CC5F-0909-4F8D-8E9A-BCB52E0E8350}</ProjectGuid>
     <RootNamespace>playdb</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
