@@ -59,8 +59,25 @@ size_t BTreeNode<T>::GetByteArraySize() const
 	size_t sz = 0;
 	sz += sizeof(m_leaf); // m_leaf
 	sz += sizeof(size_t); // m_entry_num
-	sz += (sizeof(id_type) + sizeof(T) + sizeof(size_t)) * m_entry_num; // entries
+	// entries
+	sz += (sizeof(id_type) + sizeof(T) + sizeof(size_t)) * m_entry_num;
 	for (size_t i = 0; i < m_entry_num; ++i) {
+		sz += m_entry_len[i];
+	}
+	sz += sizeof(id_type) * (m_entry_num + 1); // children
+	return sz;
+}
+
+template <>
+size_t BTreeNode<std::string>::GetByteArraySize() const
+{
+	size_t sz = 0;
+	sz += sizeof(m_leaf); // m_leaf
+	sz += sizeof(size_t); // m_entry_num
+	// entries
+	sz += (sizeof(id_type) + sizeof(size_t)) * m_entry_num; 
+	for (size_t i = 0; i < m_entry_num; ++i) {
+		sz += storage::sizeof_pack_str(m_entry_key[i]);
 		sz += m_entry_len[i];
 	}
 	sz += sizeof(id_type) * (m_entry_num + 1); // children
@@ -101,6 +118,40 @@ void BTreeNode<T>::LoadFromByteArray(const byte* data)
 	}
 }
 
+template <>
+void BTreeNode<std::string>::LoadFromByteArray(const byte* data)
+{
+	byte* ptr = const_cast<byte*>(data);
+
+	storage::unpack(m_leaf, &ptr);     // m_leaf
+
+	storage::unpack(m_entry_num, &ptr); // m_entry_num
+	// entries
+	for (size_t i = 0; i < m_entry_num; ++i)
+	{
+		storage::unpack(m_entry_id[i], &ptr);
+		storage::unpack_str(m_entry_key[i], &ptr);
+		storage::unpack(m_entry_len[i], &ptr);
+
+		size_t len = m_entry_len[i];
+		if (len > 0) 
+		{
+			m_entry_data[i] = new byte[len];
+			memcpy(m_entry_data[i], ptr, len);
+			ptr += len;
+		}
+		else
+		{
+			m_entry_data[i] = nullptr;
+		}
+	}
+
+	// children
+	for (size_t i = 0, n = m_entry_num + 1; i < n; ++i) {
+		storage::unpack(m_children[i], &ptr);
+	}
+}
+
 template <typename T>
 void BTreeNode<T>::StoreToByteArray(byte** data, size_t& len) const
 {
@@ -117,6 +168,37 @@ void BTreeNode<T>::StoreToByteArray(byte** data, size_t& len) const
 	{
 		storage::pack(m_entry_id[i], &ptr);
 		storage::pack(m_entry_key[i], &ptr);
+
+		size_t len = m_entry_len[i];
+		storage::pack(len, &ptr);
+		if (len > 0) {
+			memcpy(ptr, m_entry_data[i], len);
+			ptr += len;
+		}
+	}
+
+	// children
+	for (size_t i = 0, n = m_entry_num + 1; i < n; ++i) {
+		storage::pack(m_children[i], &ptr);
+	}
+}
+
+template <>
+void BTreeNode<std::string>::StoreToByteArray(byte** data, size_t& len) const
+{
+	len = GetByteArraySize();
+
+	*data = new byte[len];
+	byte* ptr = *data;
+
+	storage::pack(m_leaf, &ptr); // m_leaf
+
+	storage::pack(m_entry_num, &ptr); // m_entry_num
+	// entries
+	for (size_t i = 0; i < m_entry_num; ++i)
+	{
+		storage::pack(m_entry_id[i], &ptr);
+		storage::pack_str(m_entry_key[i], &ptr);
 
 		size_t len = m_entry_len[i];
 		storage::pack(len, &ptr);
