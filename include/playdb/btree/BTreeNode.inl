@@ -85,7 +85,7 @@ void BTreeNode<T>::LoadFromByteArray(const byte* data)
 		storage::unpack(m_entry_len[i], &ptr);
 
 		size_t len = m_entry_len[i];
-		if (len > 0) 
+		if (len > 0)
 		{
 			m_entry_data[i] = new byte[len];
 			memcpy(m_entry_data[i], ptr, len);
@@ -168,7 +168,7 @@ void BTreeNode<T>::InsertEntryNonFull(size_t data_len, const byte* const data, c
 		}
 
 		NodePtr<T> child = m_tree->ReadNode(m_children[i + 1]);
-		if (child->m_entry_num == capacity) 
+		if (child->m_entry_num == capacity)
 		{
 			SplitChild(i + 1, child);
 			if (m_entry_key[i + 1] < key) {
@@ -189,9 +189,9 @@ void BTreeNode<T>::DeleteEntry(size_t index)
 	//	delete[] m_entry_data[index];
 	//}
 
-	//if (m_entry_num > 1 && index != m_entry_num - 1) 
+	//if (m_entry_num > 1 && index != m_entry_num - 1)
 	//{
-	//	m_entry_id[index] = 
+	//	m_entry_id[index] =
 	//}
 }
 

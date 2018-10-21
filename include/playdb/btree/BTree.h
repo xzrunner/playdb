@@ -24,7 +24,7 @@ public:
 	void LayerTraverse(IVisitor& visitor);
 
 	bool Query(const T& key, Data<T>& result);
-	
+
 private:
 	id_type WriteNode(BTreeNode<T>& node);
 	NodePtr<T> ReadNode(id_type id);

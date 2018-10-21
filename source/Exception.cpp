@@ -38,7 +38,7 @@ std::string IllegalStateException::what() const
 	return "IllegalStateException: " + m_error + "\nPlease contact "/* + PACKAGE_BUGREPORT*/;
 }
 
-IllegalArgumentException::IllegalArgumentException(const std::string& s) 
+IllegalArgumentException::IllegalArgumentException(const std::string& s)
 	: m_error(s)
 {
 }

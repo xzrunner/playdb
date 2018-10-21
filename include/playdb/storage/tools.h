@@ -8,19 +8,19 @@ namespace playdb
 namespace storage
 {
 
-template<typename T> inline 
+template<typename T> inline
 void pack(const T& d, uint8_t** ptr) {
 	memcpy(*ptr, &d, sizeof(d));
 	*ptr += sizeof(d);
 }
 
-template<typename T> inline 
+template<typename T> inline
 void unpack(T& d, uint8_t** ptr) {
 	memcpy(&d, *ptr, sizeof(d));
 	*ptr += sizeof(d);
 }
 
-inline 
+inline
 int sizeof_pack_str(const std::string& str) {
 	if (str.empty()) {
 		return sizeof(uint16_t);
@@ -32,7 +32,7 @@ int sizeof_pack_str(const std::string& str) {
 	}
 }
 
-inline 
+inline
 void pack_str(const std::string& str, uint8_t** ptr) {
 	if (str.empty()) {
 		uint16_t c = 0xffff;
@@ -50,7 +50,7 @@ void pack_str(const std::string& str, uint8_t** ptr) {
 	}
 }
 
-inline 
+inline
 void unpack_str(std::string& str, uint8_t** ptr) {
 	uint16_t sz;
 	unpack(sz, ptr);

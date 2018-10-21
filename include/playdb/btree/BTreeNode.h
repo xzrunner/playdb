@@ -46,7 +46,7 @@ public:
 
 	void InsertEntryNonFull(size_t data_len, const byte* const data, const T& key, id_type id);
 	void DeleteEntry(size_t index);
-	
+
 private:
 	void SplitChild(size_t idx, NodePtr<T>& node);
 
@@ -70,12 +70,12 @@ private:
 	id_type* m_entry_id;
 	T*       m_entry_key;
 	byte**   m_entry_data;
-	size_t*  m_entry_len;	
-	
+	size_t*  m_entry_len;
+
 	// n child
 	id_type* m_children;
 
-	template <typename T> 
+	template <typename T>
 	friend class BTree;
 
 }; // BTreeNode

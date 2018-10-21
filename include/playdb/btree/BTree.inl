@@ -61,7 +61,7 @@ void BTree<T>::InsertData(const T& key, size_t len, const byte* const data)
 	auto child = ReadNode(new_root->m_children[i]);
 	child->InsertEntryNonFull(len, data, key, storage::NEW_PAGE);
 	WriteNode(*new_root);
-	
+
 	m_root_id = new_root->m_id;
 }
 
@@ -77,7 +77,7 @@ void BTree<T>::LayerTraverse(IVisitor& visitor)
 		visitor.VisitNode(*n);
 		for (size_t i = 0; i < n->m_entry_num; ++i) {
 			visitor.VisitData(Data<T>(
-					n->m_entry_id[i], 
+					n->m_entry_id[i],
 					n->m_entry_key[i],
 					n->m_entry_data[i],
 					n->m_entry_len[i]));
@@ -140,7 +140,7 @@ id_type BTree<T>::WriteNode(BTreeNode<T>& node)
 		throw IllegalStateException("WriteNode: failed with InvalidPageException");
 	}
 
-	if (node.m_id < 0) 
+	if (node.m_id < 0)
 	{
 		node.m_id = page;
 		m_stats.nodes++;

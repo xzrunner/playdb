@@ -11,7 +11,7 @@ class Exception
 public:
 	virtual std::string what() const = 0;
 	virtual ~Exception() {}
-}; // Exception 
+}; // Exception
 
 class IndexOutOfBoundsException : public Exception
 {

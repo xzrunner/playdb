@@ -219,9 +219,9 @@ void DiskStorageManager::StoreByteArray(id_type& id, const size_t len, const byt
 		}
 
 		auto old_entry = std::move(entry->second);
-		
+
 		m_page_index.erase(entry);
-		
+
 		auto new_entry = std::make_unique<Entry>();
 		new_entry->m_length = len;
 
@@ -312,7 +312,7 @@ void DiskStorageManager::Flush()
 			throw IllegalStateException("DiskStorageManager: Corrupted storage manager index file.");
 		}
 	}
-	
+
 	// write page index.
 	count = m_page_index.size();
 	m_index_file.write(reinterpret_cast<const char*>(&count), sizeof(size_t));

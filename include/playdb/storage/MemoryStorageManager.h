@@ -19,7 +19,7 @@ class MemoryStorageManager : public IStorageManager
 public:
 	MemoryStorageManager();
 	virtual ~MemoryStorageManager();
-	
+
 	virtual void LoadByteArray(const id_type id, size_t& len, byte** data) override;
 	virtual void StoreByteArray(id_type& id, const size_t len, const byte* const data) override;
 	virtual void DeleteByteArray(const id_type id) override;

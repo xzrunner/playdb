@@ -18,10 +18,10 @@ namespace storage
 class DiskStorageManager : public IStorageManager
 {
 public:
-	DiskStorageManager(const std::string& index_filepath, 
+	DiskStorageManager(const std::string& index_filepath,
 		const std::string& data_filepath, bool overwrite = false, size_t page_size = 0);
 	virtual ~DiskStorageManager();
-	
+
 	virtual void LoadByteArray(const id_type id, size_t& len, byte** data) override;
 	virtual void StoreByteArray(id_type& id, const size_t len, const byte* const data) override;
 	virtual void DeleteByteArray(const id_type id) override;
